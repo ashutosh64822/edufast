@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: edufast
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DEMO_PASSWORD
+        value: demo123
+      # Recommended: paste a Neon/Supabase Postgres connection string here in
+      # Render. Without it, Render will use the local JSON fallback and free
+      # service data may reset on redeploy.
+      - key: DATABASE_URL
+        sync: false
